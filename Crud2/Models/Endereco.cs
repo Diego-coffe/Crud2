@@ -34,7 +34,7 @@ namespace Crud2.Models
         public string Cidade { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatorio")]
-        [StringLength(100, ErrorMessage = "O campo {0} precisa conter entre {1} caracters á {2} ", MinimumLength = 3)
+        [StringLength(100, ErrorMessage = "O campo {0} precisa conter entre {1} caracters á {2} ", MinimumLength = 3)]
         public string Estado { get; set; }
 
 
