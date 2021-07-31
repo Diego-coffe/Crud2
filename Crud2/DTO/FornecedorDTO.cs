@@ -1,24 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Crud2.Enums;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace Crud2.Models
+namespace Crud2.DTO
 {
-    public class Endereco : Entity
+    public class FornecedorDTO
     {
+        [Required(ErrorMessage = "O campo {0} é obrigatorio")]
+        [StringLength(100, ErrorMessage = "O campo {0} precisa conter entre {1} caracters á {2} ", MinimumLength = 3)]
+        public string Nome { get; set; }
 
-        public Guid FornecedorId { get; set; }
+
+        [Required(ErrorMessage = "O campo {0} é obrigatorio")]
+        [StringLength(14, ErrorMessage = "O campo {0} precisa conter entre {1} caracters á {2} ", MinimumLength = 11)]
+        public string Documento { get; set; }
+
+        public TipoFornecedor TipoFornecedor { get; set; }
+
+        [DisplayName("Ativo ?")]
+        public bool Ativo { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatorio")]
         [StringLength(100, ErrorMessage = "O campo {0} precisa conter entre {1} caracters á {2} ", MinimumLength = 3)]
         public string Logradouro { get; set; }
-
         [Required(ErrorMessage = "O campo {0} é obrigatorio")]
         [StringLength(100, ErrorMessage = "O campo {0} precisa conter entre {1} caracters á {2} ", MinimumLength = 3)]
         public string Numero { get; set; }
-
         public string Complemento { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatorio")]
@@ -37,9 +44,5 @@ namespace Crud2.Models
         [StringLength(100, ErrorMessage = "O campo {0} precisa conter entre {1} caracters á {2} ", MinimumLength = 3)]
         public string Estado { get; set; }
 
-
-
-        /* Relação para ORM (Entity Framework) 1 x 1 */
-        public Fornecedor Fornecedor { get; set; }
     }
 }

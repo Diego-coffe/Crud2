@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Crud2.Data;
 using Crud2.Models;
+using Crud2.DTO;
 
 namespace Crud2.Controllers
 {
@@ -54,15 +55,35 @@ namespace Crud2.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Fornecedor fornecedor)
+        public async Task<IActionResult> Create(FornecedorDTO fornecedorDTO)
         {
             if (ModelState.IsValid)
             {
+                var fornecedor = new Fornecedor
+                {
+                    Documento = fornecedorDTO.Documento,
+                    Nome = fornecedorDTO.Nome,
+                    TipoFornecedor = fornecedorDTO.TipoFornecedor,
+                    Ativo = fornecedorDTO.Ativo,
+                    Endereco = new Endereco
+                    {
+                        Bairro = fornecedorDTO.Bairro,
+                        CEP = fornecedorDTO.CEP,
+                        Cidade = fornecedorDTO.Cidade,
+                        Complemento = fornecedorDTO.Complemento,
+                        Estado = fornecedorDTO.Estado,
+                        Logradouro = fornecedorDTO.Logradouro,
+                        Numero = fornecedorDTO.Numero
+                    }
+                };
+
+
                 _context.Add(fornecedor);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(fornecedor);
+
+            return View(fornecedorDTO);
         }
 
         // GET: Fornecedores/Edit/5
